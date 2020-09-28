@@ -1,0 +1,15 @@
+body{
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+#App {
+  margin-top:-8px;
+  margin-right: -8px;
+  margin-left: -8px;
+    background-image: url(back_logo.jpg);
+    background-repeat: no-repeat;
+    height:821px;
+    /* background-attachment: fixed; */
+    background-size: 100% 80%;
+    overflow-y: hidden;
+  }
