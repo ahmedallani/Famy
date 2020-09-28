@@ -20,7 +20,7 @@ class App extends React.Component {
     }
     render() {
       return <div>
-          {!this.state.displaylogo?<Logo/>:null}
+          {this.state.displaylogo?<Logo/>:null}
           {this.state.displaysignup?<Signup/>:null}
           {this.state.displayshop?<Shop/>:null}
           {this.state.displaylogin?<Login/>:null}

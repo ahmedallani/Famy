@@ -7,7 +7,7 @@ class Logo extends React.Component {
         }
     }
     render() {
-      return <img src="famy-logo.png" width="1320px" id="logofamy"/>;
+      return <img src="famy-logo.png" width="1250px" id="logofamy"/>;
     }
   }
 
