@@ -1,15 +1,37 @@
-body{
-  overflow-y: hidden;
-  overflow-x: hidden;
+body {
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
+
 #App {
-  margin-top:-8px;
-  margin-right: -8px;
-  margin-left: -8px;
+    margin-top: -8px;
+    margin-right: -8px;
+    margin-left: -8px;
     background-image: url(back_logo.jpg);
     background-repeat: no-repeat;
-    height:821px;
+    height: 821px;
     /* background-attachment: fixed; */
-    background-size: 100% 80%;
+    background-size: 100% 100%;
     overflow-y: hidden;
-  }
+}
+
+.avatar {
+    float: left;
+    width: 33.33%;
+    padding: 10px;
+    height: 300px;
+}
+
+.avatar_name {
+    font-family: 'Francois One';
+    line-height: 1.5em;
+}
+
+.avatar_image {
+    width: 100px;
+}
+
+.card {
+    padding: 16px;
+    text-align: center;
+}

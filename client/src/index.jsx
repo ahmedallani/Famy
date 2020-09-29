@@ -13,19 +13,20 @@ class App extends React.Component {
           displaynavbar:false,
           displaylogin:false,
           displaysignup:false,
-          displayshop:false,
+          displayshop:true,
           displaySimulation:false,
         }
     }
     render() {
-      return <div>
-          {this.state.displaySimulation?<Signup/>:null}
-          {this.state.displayshop?<Shop/>:null}
-          {this.state.displaylogin?<Login/>:null}
-          {this.state.displaySimulation?<Simulation/>:null}
-          {this.state.displaynavbar?<NavBar/>:null}
-      </div>;
-    }
+      return (
+      <div>
+        {this.state.displaySimulation?<Signup/>:null}
+        {this.state.displayshop?<Shop/>:null}
+        {this.state.displaylogin?<Login/>:null}
+        {this.state.displaySimulation?<Simulation/>:null}
+        {this.state.displaynavbar?<NavBar/>:null}
+    </div>
+    )};
   }
 
   ReactDOM.render(<App/>,document.getElementById("App"))
