@@ -8,7 +8,14 @@ class Navbar extends React.Component {
         }
     }
     render() {
-      return <h1>Bonjour</h1>;
+      return <div className="container">
+      <ul>
+        <li><a>HOME</a></li>
+        <li><a>SHOP</a></li>
+        <li><a>ABOUT</a></li>
+        <li><a>LOGOUT</a></li>
+      </ul>
+    </div>;
     }
   }
 
