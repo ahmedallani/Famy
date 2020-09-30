@@ -10,6 +10,8 @@ class App extends React.Component {
     constructor(props){
         super(props)
         this.state={
+          balance : 100,
+          Id : 10,
           displaynavbar:false,
           displaylogin:false,
           displaysignup:false,
@@ -21,7 +23,7 @@ class App extends React.Component {
       return (
       <div>
         {this.state.displaySimulation?<Signup/>:null}
-        {this.state.displayshop?<Shop/>:null}
+        {this.state.displayshop?<Shop Id={this.state.Id} balance={this.state.balance}/>:null}
         {this.state.displaylogin?<Login/>:null}
         {this.state.displaySimulation?<Simulation/>:null}
         {this.state.displaynavbar?<NavBar/>:null}

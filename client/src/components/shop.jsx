@@ -7,8 +7,9 @@ class Avatar extends React.Component {
   render() {
     return (
       <div className="card">
-        <img className="avatar_image" src={this.props.image}></img>
         <h1 className="avatar_name"> {this.props.avatar} </h1>
+        <img className="avatar_image" src={this.props.image}></img>
+        <h2 className="avatar_price">{this.props.price}</h2>
         <button className="btn">purchase</button>
       </div>
     )
@@ -18,19 +19,23 @@ class Avatar extends React.Component {
 const character = [
   {
     avatar: "pokemon",
-    image: 'https://fr.web.img2.acsta.net/r_640_360/newsv7/19/11/20/17/13/0883987.jpg'
+    image: 'https://fr.web.img2.acsta.net/r_640_360/newsv7/19/11/20/17/13/0883987.jpg',
+    price : 10
   },
   {
     avatar: "heyy",
-    image: 'https://fr.web.img2.acsta.net/r_640_360/newsv7/19/11/20/17/13/0883987.jpg'
+    image: 'https://fr.web.img2.acsta.net/r_640_360/newsv7/19/11/20/17/13/0883987.jpg',
+    price : 5
   },
   {
     avatar: "heyy",
-    image: 'https://fr.web.img2.acsta.net/r_640_360/newsv7/19/11/20/17/13/0883987.jpg'
+    image: 'https://fr.web.img2.acsta.net/r_640_360/newsv7/19/11/20/17/13/0883987.jpg',
+    price : 10
   },
   {
     avatar: "heyy",
-    image: 'https://fr.web.img2.acsta.net/r_640_360/newsv7/19/11/20/17/13/0883987.jpg'
+    image: 'https://fr.web.img2.acsta.net/r_640_360/newsv7/19/11/20/17/13/0883987.jpg',
+    price : 5
   }
 ];
 
@@ -52,7 +57,6 @@ class Shop extends React.Component {
           })};
     </div>
       </div>
-
     )
   };
 };

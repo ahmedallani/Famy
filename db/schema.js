@@ -24,6 +24,7 @@ const avatarSchema = mongoose.Schema({
   image: String,
   price: Number,
 });
+
 const Avatar = mongoose.model("Avatar", avatarSchema);
 
 const id=new AccountNumberdB({AccountNumber:0})
