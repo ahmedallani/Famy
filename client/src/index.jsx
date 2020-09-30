@@ -14,14 +14,14 @@ class App extends React.Component {
         this.state={
           ID:"",
           userdata:{},
-          displaynavbar:true,
+          displaynavbar:false,
           displaylogin:false,
           displaysignup:false,
           displayshop:false,
           displaySimulation:false,
           displaylogo:false,
           displaySignup0:false,
-          displayAdmin : true
+          displayAdmin : true,
         }
         this.UpdateData=this.UpdateData.bind(this)
         this.selectCharId=this.selectCharId.bind(this)
