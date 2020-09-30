@@ -21,7 +21,7 @@ class App extends React.Component {
           displaySimulation:false,
           displaylogo:false,
           displaySignup0:false,
-          displayAdmin : true
+          displayAdmin : true,
         }
         this.UpdateData=this.UpdateData.bind(this)
         this.selectCharId=this.selectCharId.bind(this)
