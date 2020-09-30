@@ -171,3 +171,29 @@ body{
    position: relative;
    top:50px;
  }
+ .avatar_image {
+  
+  display: block;
+  text-align: center;
+  width: 40%;
+}
+.avatar_name {
+  width: auto;
+  text-align: center;
+}
+#token {
+  width: 5%;
+  margin: 10px 12px;
+}
+.Row {
+  display: table;
+  width: 100%; 
+  table-layout: fixed; 
+  border-spacing: 3px; 
+  border-radius: 100%;
+}
+.Column {
+  display: table-cell;
+  background-color: #eee;
+  opacity: 0.5;
+}
