@@ -7,19 +7,21 @@ import Simulation from "./components/simulation.jsx"
 import NavBar from "./components/navbar.jsx"
 import Logo from "./components/logo.jsx"
 import Signup0 from "./components/signup0.jsx"
+import Admin from "./components/Admin.jsx"
 class App extends React.Component {
     constructor(props){
         super(props)
         this.state={
           ID:"",
           userdata:{},
-          displaynavbar:false,
+          displaynavbar:true,
           displaylogin:false,
-          displaysignup:true,
+          displaysignup:false,
           displayshop:false,
           displaySimulation:false,
-          displaylogo:true,
-          displaySignup0:false
+          displaylogo:false,
+          displaySignup0:false,
+          displayAdmin : true
         }
         this.UpdateData=this.UpdateData.bind(this)
         this.selectCharId=this.selectCharId.bind(this)
@@ -49,6 +51,7 @@ class App extends React.Component {
     render() {
       return <div>
           {this.state.displaynavbar?<NavBar />:null}
+          {this.state.displayAdmin ? <Admin/> : null}
           {this.state.displaylogo?<Logo/>:null}
           {this.state.displaysignup?<Signup IdS={this.selectCharId} toogle={this.toggleLoginSignup}/>:null}
           {this.state.displayshop?<Shop/>:null}
