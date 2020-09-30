@@ -88,9 +88,6 @@ const updateTokens = Users.updateOne({ id: req.body.id }, {balance: req.body.fin
     }
 );
 
-
-
-
 module.exports = {
   registerUser,
   loginUser,
