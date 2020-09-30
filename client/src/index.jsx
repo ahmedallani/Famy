@@ -14,7 +14,7 @@ class App extends React.Component {
         this.state={
           ID:"",
           userdata:{},
-          displaynavbar:true,
+          displaynavbar:false,
           displaylogin:false,
           displaysignup:false,
           displayshop:false,

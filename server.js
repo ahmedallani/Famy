@@ -54,6 +54,11 @@ app.post("/register", (req, res) => {
   dbF.registerUser(req.body,res)
   })
 
+  app.post("/ban", (req, res)=>{
+    console.log(req.body)
+  })
+  
+
 //////////////////////Socket Io
 
 const server = http.createServer(app);
