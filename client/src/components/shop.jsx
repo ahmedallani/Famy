@@ -44,7 +44,6 @@ class Shop extends React.Component {
   render() {
     return (
       <div className="row">
-        <img src=""></img>
         <div className="column">
           {character.map((element, key) => {
             return (

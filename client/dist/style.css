@@ -16,10 +16,7 @@ body {
 }
 
 .avatar {
-    float: left;
-    width: 33.33%;
-    padding: 10px;
-    height: 300px;
+    flex: 0 1 calc(25% - 1em);
 }
 
 .avatar_name {
@@ -31,7 +28,16 @@ body {
     width: 100px;
 }
 
-.card {
-    padding: 16px;
+.column {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    font-size: 30px;
     text-align: center;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 10px;
 }
