@@ -9,7 +9,7 @@ const schemaUsers = new mongoose.Schema({
     currentskin:Number,
     friends:[{name:String,Messages:Array}],
     invitation:[{name:String}],
-    AccountStatus:String,
+    AccountStatus:{Banned:Boolean,Reason:String,Periode:String},
     Balance:Number
   })
 
@@ -41,7 +41,7 @@ const registerUser = async function (data, res) {
       currentskin:"",
       friends:[],
       invitation:[],
-      AccountStatus:"NewAccount",
+      AccountStatus:{Banned:false,Reason:"",Periode:""},
       Balance:0
     }).save((err, doc) => {
       console.log(doc.AccountNumber)
@@ -53,7 +53,7 @@ const registerUser = async function (data, res) {
 const loginUser = async function (data, res) {
   await Users.findOne({ name: data.name }).then((result) => {
     if (result === null) {
-      res.send({ Registred: false });
+      res.send({ Registred: false});
     } else {
       if (result.password === data.password) {
         res.send({

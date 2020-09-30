@@ -7,8 +7,8 @@ const mongoose=require("mongoose")
 const socketIo = require("socket.io");
 const { random } = require('./Game/game');
 const game=require("./Game/game")
-const dbF=require("./db/schema")
-
+const dbF=require("./db/schema");
+const { id } = require('./db/schema');
 
 app.use(express.static(__dirname + '/client/dist'));
 
@@ -31,15 +31,6 @@ db.once('open', function() {
 
 
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
-app.post("/register", (req, res) => {
-dbF.registerUser(req.body,res)
-
-})
-
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
@@ -50,11 +41,21 @@ app.post("/position",(req,res)=>{
   res.send()
 })
 
-app.post('/selectChar',(req,res)=>{
+app.post('/selectChar',(req,res)=>{ // Will Update the account skin with the selected skin from the signup0
   console.log(req.body)
 dbF.updateskin(req.body.id,req.body.currentskin,res)
 })
+
+app.post('/login',(req,res)=>{ //Deal with the login request to the server
+dbF.loginUser(req.body,res)
+})
+
+app.post("/register", (req, res) => {
+  dbF.registerUser(req.body,res)
+  })
+
 //////////////////////Socket Io
+
 const server = http.createServer(app);
 
 const io = socketIo(server);
@@ -62,22 +63,24 @@ const io = socketIo(server);
 let interval;
 
 io.on("connection", (socket) => {
-  console.log("New client connected");
+  socket.on("id",data=>{
+    console.log("id",data)
+    console.log("A new client is Online Id: "+data)
+    randomSpawn(data)
+    console.log(matrix)
+  })
+
   if (interval) {
     clearInterval(interval);
   }
-  socket.on("id",data=>{
-    console.log(data)
-  })
   interval = setInterval(() => getApiAndEmit(socket), 200);
   socket.on("disconnect", () => {
-    console.log("Client disconnected");
+    console.log("Client disconnected ");
     clearInterval(interval);
   });
 });
 
 const getApiAndEmit = socket => {
-
   socket.emit("Simulationdata", "test");
 };
 
@@ -94,16 +97,51 @@ var randomSpawn = function(id,res){
   var y=game.random("y")
   if(matrix[x][y]===0){
      matrix[x][y]=id
-     res.send({place:"done"})
-     console.log()
+     res.send({x:x,y:y})
   }else{
-    randomSpawn(id,res)
+    randomSpawn(id)
   }
-  
 }
-
-
-
+//currentpositionX
+//currentpositionY
+const mouve= function (PX,PY,Id,res,req){
+  var currentpositionX=(PX-130)/10
+  var currentpositionY=(PY-100)/10
+ if(matrix[currentpositionY][currentpositionX]!==undefined){
+  if(req.body.Face==="top"){
+    // if(matrix[currentpositionY][currentpositionX]!=0){res.send({move:false})}
+    if(matrix[currentpositionY][currentpositionX]===0){
+      matrix[currentpositionY][currentpositionX]=Id
+      matrix[currentpositionY+1][currentpositionX]=0
+    //  res.send({move:true})
+    }
+ }else if(req.body.Face==="Down"){
+  // if(matrix[currentpositionY][currentpositionX]!=0){res.send({move:false})}
+   if(matrix[currentpositionY][currentpositionX]===0){
+     matrix[currentpositionY][currentpositionX]=Id
+     matrix[currentpositionY-1][currentpositionX]=0
+    //  res.send({move:true})
+   }
+ }else if(req.body.Face==="left"){
+  // if(matrix[currentpositionY][currentpositionX]!=0){res.send({move:false})}
+   if(matrix[currentpositionY][currentpositionX]===0){
+     matrix[currentpositionY][currentpositionX]=Id
+     matrix[currentpositionY][currentpositionX+1]=0 
+    //  res.send({move:true})
+ }
+ 
+}else if(req.body.Face==="right"){
+  // if(matrix[currentpositionY][currentpositionX]!=0){res.send({move:false})}
+ if(matrix[currentpositionY][currentpositionX]===0){
+   matrix[currentpositionY][currentpositionX]=Id
+   matrix[currentpositionY][currentpositionX-1]=0
+  //  res.send({move:true})
+}
+}
+console.table(matrixs)
+ }else{res.send("empty")}
+}
+//mouve()
 
 
 // dbF.id.save((result,err)=>{ // if you want to set the accounts id to 0 uncomment this

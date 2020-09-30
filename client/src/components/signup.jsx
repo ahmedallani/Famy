@@ -35,7 +35,8 @@ class Signup extends React.Component {
       <input type="password" placeholder="Password" onChange={(e)=>{this.setState({password:e.target.value})}}  required/>
       <input type="password" placeholder="Confirm Password" required/>
       <button onClick={this.AxiosRegister}>Sign Up</button>
-    </div>;
+      <h5>I Already have an <a href="#" onClick={this.props.toogle}>Account</a></h5>
+    </div>
     }
   }
 

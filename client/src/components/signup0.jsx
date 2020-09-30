@@ -18,7 +18,7 @@ class Signup0 extends React.Component {
           data:{id:this.props.id,currentskin:this.state.i}
         }).then((data)=>{
           console.log(data)
-          this.props.start()
+          this.props.login()
         })
   }
   ScrollL(){

@@ -13,7 +13,7 @@ class Navbar extends React.Component {
         <li><a>HOME</a></li>
         <li><a>SHOP</a></li>
         <li><a>ABOUT</a></li>
-        <li><a>LOGOUT</a></li>
+        <li onClick={()=>{location.reload()}}><a>LOGOUT</a></li>
       </ul>
     </div>;
     }
