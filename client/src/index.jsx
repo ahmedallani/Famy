@@ -8,20 +8,22 @@ import NavBar from "./components/navbar.jsx";
 import Logo from "./components/logo.jsx";
 import Signup0 from "./components/signup0.jsx";
 import Token from "./components/token.jsx";
+import AboutUs from "./components/aboutUs.jsx";
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       ID: "",
       userdata: {},
-      displaynavbar: false,
-      displaylogin: true,
+      displaynavbar: true,
+      displaylogin: false,
       displaysignup: false,
       displayshop: false,
       displaySimulation: false,
-      displaylogo: true,
+      displaylogo: false,
       displaySignup0: false,
       displayToken: false,
+      displayAboutUs: true,
     };
     this.UpdateData = this.UpdateData.bind(this);
     this.selectCharId = this.selectCharId.bind(this);
@@ -82,6 +84,7 @@ class App extends React.Component {
           <Signup0 id={this.state.ID} login={this.Mlogin} />
         ) : null}
         {this.state.displayToken ? <Token /> : null}
+        {this.state.displayAboutUs ? <AboutUs /> : null}
       </div>
     );
   }

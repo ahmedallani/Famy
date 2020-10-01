@@ -53,7 +53,9 @@ dbF.loginUser(req.body,res)
 app.post("/register", (req, res) => {
   dbF.registerUser(req.body,res)
   })
-
+app.post("/feedbacks",(res,req)=>{
+  res.send(req.body)
+})
 //////////////////////Socket Io
 
 const server = http.createServer(app);

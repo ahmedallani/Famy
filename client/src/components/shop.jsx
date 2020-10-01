@@ -1,4 +1,5 @@
 import React from "react";
+import Navbar from "./navbar.jsx";
 
 class Avatar extends React.Component {
   constructor(props) {
@@ -7,8 +8,9 @@ class Avatar extends React.Component {
   render() {
     return (
       <div className="Column">
-        <img className="avatar_image" src={this.props.image}></img>
         <h1 className="avatar_name"> {this.props.avatar} </h1>
+        <h3 className="avatar_name">price:{this.props.price} </h3>
+        <img className="avatar_image" src={this.props.image}></img>
         <button className="btn">purchase</button>
       </div>
     );
@@ -18,6 +20,16 @@ class Avatar extends React.Component {
 const character = [
   {
     avatar: "pokemon",
+    image:
+      "https://fr.web.img2.acsta.net/r_640_360/newsv7/19/11/20/17/13/0883987.jpg",
+  },
+  {
+    avatar: "heyy",
+    image:
+      "https://fr.web.img2.acsta.net/r_640_360/newsv7/19/11/20/17/13/0883987.jpg",
+  },
+  {
+    avatar: "heyy",
     image:
       "https://fr.web.img2.acsta.net/r_640_360/newsv7/19/11/20/17/13/0883987.jpg",
   },
@@ -46,13 +58,19 @@ class Shop extends React.Component {
 
   render() {
     return (
-      <div className="Row">
-        {character.map((element, key) => {
-          return (
-            <Avatar key={key} avatar={element.avatar} image={element.image} />
-          );
-        })}
+      <div>
+        <Navbar/>
+         <div className="shopBody">
+        <div className="Row">
+          {character.map((element, key) => {
+            return (
+              <Avatar key={key} avatar={element.avatar} image={element.image} />
+            );
+          })}
+        </div>
       </div>
+      </div>
+     
     );
   }
 }
