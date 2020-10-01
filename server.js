@@ -32,9 +32,10 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
-app.get('/shop', (req,res) => {
-    res.send()
-})
+app.post('/shop',(req,res)=>{
+    console.log(req.body)
+  dbF.updateTokens(req.body.Id,req.body.balance,res)
+  })
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)

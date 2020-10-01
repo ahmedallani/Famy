@@ -44,7 +44,22 @@ class Shop extends React.Component {
     super(props)
     this.state = {
     }
+
+    this.updateBalance = this.updateBalance.bind(this);
   }
+
+updateBalance(){
+  axios({
+    url: '/shop',
+    method: 'post',
+    data:{
+      balance:this.state.balance-this.props.price,
+    }
+  }).then((data)=>{
+    console.log(data)
+    })
+}
+
 
   render() {
     return (

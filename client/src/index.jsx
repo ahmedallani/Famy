@@ -23,7 +23,7 @@ class App extends React.Component {
       return (
       <div>
         {this.state.displaySimulation?<Signup/>:null}
-        {this.state.displayshop?<Shop Id={this.state.Id} balance={this.state.balance}/>:null}
+        {this.state.displayshop?<Shop Id={this.state.Id} balance={this.state.balance-this.props.price}/>:null}
         {this.state.displaylogin?<Login/>:null}
         {this.state.displaySimulation?<Simulation/>:null}
         {this.state.displaynavbar?<NavBar/>:null}
