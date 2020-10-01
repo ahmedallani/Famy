@@ -1,4 +1,5 @@
 import React from "react";
+import axios from 'axios';
 
 class Avatar extends React.Component {
   constructor(props) {
@@ -7,67 +8,82 @@ class Avatar extends React.Component {
   render() {
     return (
       <div className="card">
-        <h1 className="avatar_name"> {this.props.avatar} </h1>
+        <h1 className="avatar_name"> {this.props.name} </h1>
         <img className="avatar_image" src={this.props.image}></img>
         <h2 className="avatar_price">{this.props.price}</h2>
-        <button className="btn">purchase</button>
+        <button className="btn" onClick={this.props.handleClick}>purchase</button>
       </div>
     )
   };
 };
 
-const character = [
-  {
-    avatar: "pokemon",
-    image: 'https://fr.web.img2.acsta.net/r_640_360/newsv7/19/11/20/17/13/0883987.jpg',
-    price : 10
-  },
-  {
-    avatar: "heyy",
-    image: 'https://fr.web.img2.acsta.net/r_640_360/newsv7/19/11/20/17/13/0883987.jpg',
-    price : 5
-  },
-  {
-    avatar: "heyy",
-    image: 'https://fr.web.img2.acsta.net/r_640_360/newsv7/19/11/20/17/13/0883987.jpg',
-    price : 10
-  },
-  {
-    avatar: "heyy",
-    image: 'https://fr.web.img2.acsta.net/r_640_360/newsv7/19/11/20/17/13/0883987.jpg',
-    price : 5
-  }
-];
 
 class Shop extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      avatars: [],
+      price: "",
+      balance: "",
     }
 
     this.updateBalance = this.updateBalance.bind(this);
+    this.getAvatarPrice = this.getAvatarPrice.bind(this);
   }
 
-updateBalance(){
-  axios({
-    url: '/shop',
-    method: 'post',
-    data:{
-      balance:this.state.balance-this.props.price,
-    }
-  }).then((data)=>{
-    console.log(data)
-    })
-}
+  componentDidMount() {
+    axios.get('/shop')
+      .then(response => {
+        this.setState({ avatars: response.data });
+        console.log(this.state)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  };
 
+  getUsersBalance() {
+    axios.get('/')
+      .then(response => {
+        this.setState({ balance: response.data.Balance });
+        console.log(this.state)
+      })
+      .catch(error => {
+        console.log(error)
+      });
+  };
+
+  getAvatarPrice(e) {
+    var price = e.target.className('avatar_price')
+    this.setState({ price })
+    console.log(this.state.price)
+  };
+
+  updateBalance() {
+    axios({
+      url: '/',
+      method: 'post',
+      data: {
+        Balance: this.state.balance - this.state.price,
+      }
+    }).then((data) => {
+      //save data in the database
+      //   .then(item => {
+      //     res.send("item saved to database");
+      //   })
+      //   .catch(err => {
+      //     res.status(400).send("unable to save to database");
+      //   });
+    });
+  };
 
   render() {
     return (
       <div className="row">
         <div className="column">
-          {character.map((element, key) => {
+          {this.state.avatars.map((element, key) => {
             return (
-              <Avatar key={key} avatar={element.avatar} image={element.image} />
+              <Avatar key={key} name={element.name} image={element.image} price={element.price} handleClick={this.getAvatarPrice} handleClick={this.updateBalance}/>
             );
           })};
     </div>
