@@ -21,6 +21,23 @@ const AccountNumberdB=mongoose.model('AccountNumber', schemaAccountNumber);
 
 const id=new AccountNumberdB({AccountNumber:0})
 
+const schemaBannedAccount = new mongoose.Schema({
+    id:Number,
+    reason:String,
+    date:String,
+    statu:String
+})
+
+const Reports = mongoose.model('Reports', schemaBannedAccount);
+
+const report=new Reports()
+const sendReport=function(data,res){
+  var report =new Reports({id:data.id,reason:data.reason,date:data.date,statu:"pending"})
+  report.save()
+  // res.send()
+}
+
+
 const registerUser = async function (data, res) {
   var AccountNumber;
   var user;
@@ -75,6 +92,8 @@ module.exports = {
   loginUser,
   Users,
   id,
-  updateskin
+  updateskin,
+  sendReport,
+  report
 };
 
