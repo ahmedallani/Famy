@@ -26,11 +26,15 @@ class AboutUs extends React.Component {
       data: {
         feedback: this.state.feedback,
       },
-    }).then((res) => {
+    })
+      .then((res) => {
         console.log(res);
-      }, (e) => {
-        console.log(error);
+      })
+      .catch((e) => {
+        console.log(e);
       });
+    alert("Thank you for your feedback");
+    location.reload();
   }
 
   render() {
@@ -53,7 +57,7 @@ class AboutUs extends React.Component {
         <h3>Contact Us</h3>
         <input
           type="text"
-          placeholder="send us a feedback or ask for help"
+          placeholder="send us a feedback or find support"
           onChange={this.handleCange}
           required
         />
