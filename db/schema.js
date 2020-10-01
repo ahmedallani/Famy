@@ -52,13 +52,14 @@ const registerUser = async function (data, res) {
 
 const loginUser = async function (data, res) {
   await Users.findOne({ name: data.name }).then((result) => {
+    console.log(result)
     if (result === null) {
       res.send({ Registred: false});
     } else {
       if (result.password === data.password) {
         res.send({
           Registred: true,
-          data: { name: result.name, Id: result.AccountNumber },
+          data: { name: result.name, Id: result.AccountNumber,skin:result.currentskin},
         });
       } else {
         res.send({ Registred: false });

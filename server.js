@@ -10,6 +10,12 @@ const game=require("./Game/game")
 const dbF=require("./db/schema");
 const { id } = require('./db/schema');
 
+////Map Matrix
+var matrix = Array.from(Array(27), (x) => Array(30).fill(0));
+
+var playerPosition={} // i was here if i sleep  
+//////////////
+
 app.use(express.static(__dirname + '/client/dist'));
 
 app.use(express.json())
@@ -18,6 +24,10 @@ mongoose.connect("mongodb+srv://famy:2222@cluster0.ye5b9.gcp.mongodb.net/famy?re
 useCreateIndex: true,
 useUnifiedTopology: true 
 });
+
+
+
+
 
 var db = mongoose.connection;
 
@@ -38,6 +48,10 @@ app.listen(port, () => {
 
 app.post("/position",(req,res)=>{
   console.log(req.body)
+  playerPosition[req.body.id]=req.body.positionX+"-"+req.body.positionY+"="+req.body.Face+"?"+req.body.skin
+
+  mouve(req.body.positionX,req.body.positionY,req.body.id,res,req)
+  console.log(playerPosition)
   res.send()
 })
 
@@ -54,6 +68,11 @@ app.post("/register", (req, res) => {
   dbF.registerUser(req.body,res)
   })
 
+  app.post("/Rposition",(req,res)=>{ // Randomly Chose an empty place for the newuser in the Matrix
+    randomSpawn(req.body.id,res)
+    console.table(matrix)
+
+  })
 //////////////////////Socket Io
 
 const server = http.createServer(app);
@@ -64,16 +83,14 @@ let interval;
 
 io.on("connection", (socket) => {
   socket.on("id",data=>{
-    console.log("id",data)
+    // console.log("id",data)
     console.log("A new client is Online Id: "+data)
-    randomSpawn(data)
-    console.log(matrix)
+    
   })
-
   if (interval) {
     clearInterval(interval);
   }
-  interval = setInterval(() => getApiAndEmit(socket), 200);
+  interval = setInterval(() => getApiAndEmit(socket), 1);
   socket.on("disconnect", () => {
     console.log("Client disconnected ");
     clearInterval(interval);
@@ -81,14 +98,12 @@ io.on("connection", (socket) => {
 });
 
 const getApiAndEmit = socket => {
-  socket.emit("Simulationdata", "test");
+  socket.emit("Simulationdata", playerPosition);
 };
 
 server.listen(portS, () => console.log(`Listening on port ${portS}`));
 
-////////////////////////////   Game 
-
-var matrix = Array.from(Array(26), (x) => Array(29).fill(0));
+////////////////////////////   Simulation
 
 console.table(matrix)
 
@@ -98,50 +113,53 @@ var randomSpawn = function(id,res){
   if(matrix[x][y]===0){
      matrix[x][y]=id
      res.send({x:x,y:y})
+    // console.table(matrix)
   }else{
     randomSpawn(id)
   }
 }
-//currentpositionX
-//currentpositionY
+
+
 const mouve= function (PX,PY,Id,res,req){
   var currentpositionX=(PX-130)/10
   var currentpositionY=(PY-100)/10
- if(matrix[currentpositionY][currentpositionX]!==undefined){
+ if(matrix[currentpositionX][currentpositionY]!==undefined){
   if(req.body.Face==="top"){
-    // if(matrix[currentpositionY][currentpositionX]!=0){res.send({move:false})}
-    if(matrix[currentpositionY][currentpositionX]===0){
-      matrix[currentpositionY][currentpositionX]=Id
-      matrix[currentpositionY+1][currentpositionX]=0
-    //  res.send({move:true})
+    if(matrix[currentpositionY][currentpositionX]!=0){res.send({move:false})}
+    if(matrix[currentpositionX][currentpositionY]===0){
+      matrix[currentpositionX][currentpositionY]=Id
+      matrix[currentpositionX+1][currentpositionY]=0
+     res.send({move:true})
     }
  }else if(req.body.Face==="Down"){
-  // if(matrix[currentpositionY][currentpositionX]!=0){res.send({move:false})}
-   if(matrix[currentpositionY][currentpositionX]===0){
-     matrix[currentpositionY][currentpositionX]=Id
-     matrix[currentpositionY-1][currentpositionX]=0
-    //  res.send({move:true})
+  if(matrix[currentpositionX][currentpositionY]!=0){res.send({move:false})}
+   if(matrix[currentpositionX][currentpositionY]===0){
+     matrix[currentpositionX][currentpositionY]=Id
+     matrix[currentpositionX-1][currentpositionY]=0
+     res.send({move:true})
    }
  }else if(req.body.Face==="left"){
-  // if(matrix[currentpositionY][currentpositionX]!=0){res.send({move:false})}
-   if(matrix[currentpositionY][currentpositionX]===0){
-     matrix[currentpositionY][currentpositionX]=Id
-     matrix[currentpositionY][currentpositionX+1]=0 
-    //  res.send({move:true})
+  if(matrix[currentpositionX][currentpositionX]!=0){res.send({move:false})}
+   if(matrix[currentpositionX][currentpositionY]===0){
+     matrix[currentpositionX][currentpositionY]=Id
+     matrix[currentpositionX][currentpositionY+1]=0 
+     res.send({move:true})
  }
  
 }else if(req.body.Face==="right"){
-  // if(matrix[currentpositionY][currentpositionX]!=0){res.send({move:false})}
- if(matrix[currentpositionY][currentpositionX]===0){
-   matrix[currentpositionY][currentpositionX]=Id
-   matrix[currentpositionY][currentpositionX-1]=0
-  //  res.send({move:true})
+  if(matrix[currentpositionX][currentpositionX]!=0){res.send({move:false})}
+ if(matrix[currentpositionX][currentpositionY]===0){
+   matrix[currentpositionX][currentpositionY]=Id
+   matrix[currentpositionX][currentpositionY-1]=0
+   res.send({move:true})
 }
 }
-console.table(matrixs)
- }else{res.send("empty")}
+console.table(matrix)
+ }
+//  else{res.send("empty")}
 }
-//mouve()
+// mouve(130,100,10,null,{body:{Face:"Down"}})
+
 
 
 // dbF.id.save((result,err)=>{ // if you want to set the accounts id to 0 uncomment this

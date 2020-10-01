@@ -5,8 +5,9 @@ class Token extends React.Component {
     this.state = {};
   }
   render(){
-      return (
+      return (<div>
           <img src="token.png" alt="" id="token"/>
+          </div>
       )
   }
 }

@@ -9,6 +9,7 @@ class Simulation extends React.Component {
     constructor(props){
         super(props)
         this.state={
+          MpPosition:{},
           PsPositions:[],
           id:0,
           name:"",
@@ -16,27 +17,35 @@ class Simulation extends React.Component {
         }
     }
     static getDerivedStateFromProps(nextprops){
-      alert("work")
       console.log(nextprops.data.Id)
+      
       return {
-    id:nextprops.data.Id
+    id:nextprops.data.Id,
+    name:nextprops.data.name
       }
 
     }
     componentDidMount(){
+      axios({
+        url: '/Rposition',
+        method: 'post',
+        data:{id:this.props.data.Id}
+      }).then(data=>{
+        this.setState({MpPosition:data.data})
+      })
+      
       var idSend=true
       const socket=socketIOClient(Endpoint)
       socket.on("Simulationdata",data=>{
         if(idSend){
           socket.emit('id',this.state.id)
         }
-        console.log(data)
         idSend=false
       })
     }
     render() {
       return <div id="map"> 
-             <Maincharacter/>
+             <Maincharacter MainP={this.state.MpPosition} id={this.state.id} skin={this.props.data.skin}/>
       </div>
     }
   }
