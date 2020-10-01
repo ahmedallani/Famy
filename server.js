@@ -58,7 +58,7 @@ app.post("/register", (req, res) => {
     console.log(req.body)
   })
   
-
+dbF.sendReport({id:12,reason:"flame",data:"11-12-2019"},null)
 //////////////////////Socket Io
 
 const server = http.createServer(app);
