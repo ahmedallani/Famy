@@ -19,7 +19,7 @@ var playerPosition={} // i was here if i sleep
 app.use(express.static(__dirname + '/client/dist'));
 
 app.use(express.json())
-
+// _*_ dealing with database should be in another file
 mongoose.connect("mongodb+srv://famy:2222@cluster0.ye5b9.gcp.mongodb.net/famy?retryWrites=true&w=majority", { useNewUrlParser: true, 
 useCreateIndex: true,
 useUnifiedTopology: true 
@@ -45,7 +45,7 @@ app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
 
-
+// _*_ should add prefix like api for your api routers
 app.post("/position",(req,res)=>{
   console.log(req.body)
   playerPosition[req.body.id]=req.body.positionX+"-"+req.body.positionY+"="+req.body.Face+"?"+req.body.skin
@@ -54,7 +54,7 @@ app.post("/position",(req,res)=>{
   console.log(playerPosition)
   res.send()
 })
-
+// _*_ the response should be here not in schema file
 app.post('/selectChar',(req,res)=>{ // Will Update the account skin with the selected skin from the signup0
   console.log(req.body)
 dbF.updateskin(req.body.id,req.body.currentskin,res)

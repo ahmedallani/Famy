@@ -44,6 +44,7 @@ class App extends React.Component {
     }
 
     Mlogin(){
+      // _*_ you should redirect me to the game not to login after i sign up
       this.setState({displaySignup0:false,displaylogin:true})
     }
     render() {

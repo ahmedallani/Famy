@@ -1,5 +1,6 @@
+/* _*_should let user scroll or show them everything */
 body{
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
   overflow-x: hidden;
 }
 #App {
