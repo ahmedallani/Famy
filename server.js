@@ -48,6 +48,7 @@ app.listen(port, () => {
 // _*_ should add prefix like api for your api routers
 app.post("/position",(req,res)=>{
   console.log(req.body)
+  // _*_ save it as object
   playerPosition[req.body.id]=req.body.positionX+"-"+req.body.positionY+"="+req.body.Face+"?"+req.body.skin
 
   mouve(req.body.positionX,req.body.positionY,req.body.id,res,req)
